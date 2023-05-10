@@ -1,10 +1,10 @@
-var numClones = 90;;
+var numClones = 80;;
 var minYStrech = 0.5;
 var minXStrech = 0.3;
 var maxXStrech = 0.7;
 var maxWaveWidth = window.innerHeight;
 var waveScale = 0.8;
-var amplitude = 80;
+var amplitude = 90;
 var frequency = 0.015;
 var strokeColor = [75, 118, 187];
 var backgroundColor = [219, 218, 198];
@@ -75,43 +75,32 @@ window.onload = function () {
   });
 }
 
-let analyzer
-let song;
-
-function preload(){
-  soundFormats('mp3');
-  song = loadSound("techno.mp3")
-}
 
 function setup() {
   let canvas = createCanvas(window.innerHeight * 267 / 400, window.innerHeight);
-  //canvas.mouseClicked(changeColor)
-  strokeWeight(0.9)
-  //noLoop();
-  song.setVolume(0.1);
-  song.play();
-  song.loop();
-  analyzer = new p5.Amplitude();
-  analyzer.setInput(song);
+  canvas.parent("#canvas");
+  canvas.mouseClicked(changeColor)
+  strokeWeight(.9)
+  
 }
 
 function changeColor() {
   strokeColor = [Math.floor(random (255)),Math.floor(random (255)),Math.floor(random (255))]
-  backgroundColor = [Math.floor(random (255)),Math.floor(random (255)),Math.floor(random (255))]
+  backgroundColor = [Math.floor(random (255)),Math.floor(random (255)),Math.floor(random (255)),30]
 }
-
 let animateRotation = 0;
-
 function draw() {
-  let rms = analyzer.getLevel();
-  if (rms >= 0.035){
-    changeColor();
-  }
   animateRotation = 3 + animateRotation
   //console.log(numClones, amplitude, frequency, waveScale, minYStrech, maxXStrech, minXStrech);
   background(backgroundColor);
-  stroke(strokeColor);
+  fill(strokeColor);
+
+  blendMode(DIFFERENCE); //DIFFERENCE ((HARD_LIGHT))
+  let x = mouseX;
+  let y = mouseY;
+  ellipse(x,y,80,80)
   noFill();
+  stroke(strokeColor);
   
 
   for (var i = 0; i < numClones; i++) {

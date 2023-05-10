@@ -16,9 +16,9 @@ article {
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 45px;
     line-height: 1.2;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     margin-top: unset;
 }
 
@@ -44,7 +44,14 @@ article {
     height: 100%;
     gap: 30px;
     text-align: center;
-    font-size: 22px;
+    font-size: 20px;
+}
+
+.inputWrapper.editor {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 60%;
 }
 
 #centerWrapper span {
@@ -77,6 +84,7 @@ article {
     display: flex;
     justify-content: center;
     gap: 15px;
+    margin-top: 30px;
 }
 
 article button {
@@ -87,7 +95,7 @@ article button {
     color: white;
     border-radius: 15px;
     padding: 15px 10px;
-    font-size: 24px;
+    font-size: 22px;
     cursor: pointer;
     font-weight: bold;
     transition: 300ms;

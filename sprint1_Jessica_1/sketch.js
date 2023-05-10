@@ -1,4 +1,4 @@
-var numClones = 90;
+var numClones = 90;;
 var minYStrech = 0.5;
 var minXStrech = 0.3;
 var maxXStrech = 0.7;
@@ -8,7 +8,6 @@ var amplitude = 80;
 var frequency = 0.015;
 var strokeColor = [75, 118, 187];
 var backgroundColor = [219, 218, 198];
-var strokeWeightValue = 0.9;
 
 window.onload = function () {
   Coloris({
@@ -33,22 +32,22 @@ window.onload = function () {
   });
 
   document.querySelector("#numClones").addEventListener("change", (e) => {
-    numClones = parseFloat(e.target.value);
+    numClones = e.target.value;
     draw();
   });
 
   document.querySelector("#amplitude").addEventListener("change", (e) => {
-    amplitude = parseFloat(e.target.value);
+    amplitude = e.target.value;
     draw();
   });
 
   document.querySelector("#frequency").addEventListener("change", (e) => {
-    frequency = parseFloat(e.target.value);
+    frequency = e.target.value;
     draw();
   });
 
   document.querySelector("#waveScale").addEventListener("change", (e) => {
-    waveScale = parseFloat(e.target.value);
+    waveScale = e.target.value;
     draw();
   });
 
@@ -74,31 +73,35 @@ window.onload = function () {
     maxWaveWidth = parseFloat(e.target.value);
     draw();
   });
-
-  document.querySelector("#strokeWeight").addEventListener("change", (e) => {
-    strokeWeightValue = parseFloat(e.target.value);
-    draw();
-  });
 }
 
 function setup() {
-  createCanvas(window.innerHeight * 267 / 400, window.innerHeight);
-  noLoop();
+  let canvas = createCanvas(window.innerHeight * 267 / 400, window.innerHeight);
+  canvas.mouseClicked(changeColor)
+  strokeWeight(0.9)
+  //noLoop();
 }
 
+function changeColor() {
+  strokeColor = [Math.floor(random (255)),Math.floor(random (255)),Math.floor(random (255))]
+  backgroundColor = [Math.floor(random (255)),Math.floor(random (255)),Math.floor(random (255))]
+}
+
+let animateRotation = 0;
+
 function draw() {
-  console.log(numClones, amplitude, frequency, waveScale, minYStrech, maxXStrech, minXStrech, strokeWeightValue);
+  animateRotation = 3 + animateRotation
   background(backgroundColor);
-  strokeWeight(strokeWeightValue);
   stroke(strokeColor);
   noFill();
+  
 
   for (var i = 0; i < numClones; i++) {
     push();
-    var cloneCenterX = width / 2;
-    var cloneCenterY = height / 2;
+    var cloneCenterX = mouseX;
+    var cloneCenterY = mouseY;
     var startRotation = 90;
-    var rotation = 180 / numClones * i + startRotation;
+    var rotation = 180 / numClones * i + startRotation - animateRotation;
     translate(cloneCenterX, cloneCenterY);
     scale(-waveScale, waveScale);
     rotate(rotation * PI / 180);
